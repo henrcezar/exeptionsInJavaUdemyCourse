@@ -1,13 +1,13 @@
-package exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoMuitoRuim.application;
+package exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoRuim.application;
 
-import exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoMuitoRuim.model.entities.Reservation;
+import exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoRuim.model.entities.ReservationWithValidations;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Program {
+public class App {
     public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -23,7 +23,7 @@ public class Program {
             System.out.println("Error in reservation: Check-out date must be after check-in date");
         }
         else {
-            Reservation reservation = new Reservation(roomNumber, checkin, checkout);
+            ReservationWithValidations reservation = new ReservationWithValidations(roomNumber, checkin, checkout);
             System.out.println("Reservation: " + reservation);
             System.out.println();
             System.out.println("Enter data to update the reservation: ");
@@ -32,19 +32,17 @@ public class Program {
             System.out.print("Check-out date(dd/mm/yyyy): ");
             checkout = sdf.parse(sc.next());
 
-            Date now = new Date();
-            if(checkin.before(now) || checkout.before(now)){
-                System.out.println("Error in reservation: Reservation dates for update must be future dates");
-            }
-            else if(!checkout.after(checkin)){
-                System.out.println("Error in reservation: Check-out date must be after check-in date");
+
+            String error = reservation.updateDates(checkin, checkout);
+            if (error != null){
+                System.out.println("Error in reservation: " + error);
             }
             else {
-                reservation.updateDates(checkin, checkout);
                 System.out.println("Reservation: " + reservation);
             }
 
         }
         sc.close();
+
     }
 }

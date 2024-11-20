@@ -1,4 +1,4 @@
-package exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoMuitoRuim.application.model.entities;
+package exceções.exceçõesPersonalizadas.exeptionsInJavaUdemyCourse.metodoMuitoRuim.model.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,14 +42,14 @@ public class Reservation {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    public void uodateDates(Date checkin, Date checkout){
+    public void updateDates(Date checkin, Date checkout){
         this.checkin = checkin;
         this.checkout = checkout;
     }
 
     @Override
     public String toString() {
-        return "Room"
+        return "Room "
                 + roomNumber
                 +", check-in: "
                 + sdf.format(checkin)
